@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/1f157608-16e9-42b1-abf1-d741b76c13ae/resourceGroups/devopspruebas/providers/Microsoft.Web/sites/tiendaLynda",
+    "appService.deploySubpath": "."
+}
