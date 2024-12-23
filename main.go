@@ -34,7 +34,7 @@ func main() {
 
 	// Establece el puerto directamente en 8080
 	server := &http.Server{
-		Addr:         ":8080", // Escuchar en todas las interfaces
+		Addr:         os.Getenv("PORT"), // Escuchar en todas las interfaces
 		Handler:      r,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
