@@ -1,6 +1,8 @@
 package main
 
 import (
+	"cmp"
+	"fmt"
 	"net/http"
 	"os"
 	v1 "proyecto_3/api/v1"
@@ -32,14 +34,15 @@ func main() {
 
 	connection.Conectar()
 
-	// Establece el puerto directamente en 8080
+	port := cmp.Or(os.Getenv("PORT"), "3000")
+
 	server := &http.Server{
-		Addr:         os.Getenv("PORT"), // Escuchar en todas las interfaces
+		Addr:         fmt.Sprintf(":%s", port), // Escuchar en todas las interfaces
 		Handler:      r,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
-	log.Info().Msg("Server running on port :8080")
+	log.Info().Msg("Server running on port :" + port)
 	server.ListenAndServe()
 }
