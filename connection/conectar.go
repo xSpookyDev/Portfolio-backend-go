@@ -2,30 +2,33 @@ package connection
 
 import (
 	"database/sql"
-	"os"
+	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
 	"github.com/rs/zerolog/log"
 )
 
 var Db *sql.DB
 
-// Conectar abre una conexion con la base de datos MySQL.
+// Conectar abre una conexión con la base de datos MySQL.
 func Conectar() {
+	// Configuración de la base de datos directamente en el código
+	dbUser := "demouser"
+	dbPassword := "Dalebulla7"
+	dbServer := "mysqlflex7.mysql.database.azure.com"
+	dbPort := "3306"
+	dbName := "golang-message"
 
-	errorVariables := godotenv.Load()
-	if errorVariables != nil {
-		log.Fatal().Err(errorVariables).Msg("Error al cargar el archivo .env")
-	}
+	// Crear la cadena de conexión MySQL
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbServer, dbPort, dbName)
 
-	conection, err := sql.Open("mysql", os.Getenv("DB_USER")+":"+os.Getenv("DB_PASSWORD")+"@tcp("+os.Getenv("DB_SERVER")+":"+os.Getenv("DB_PORT")+")/"+os.Getenv("DB_NAME"))
+	// Conectar a la base de datos
+	conection, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Error al conectar con la base de datos")
 	}
 
 	Db = conection
-
 }
 
 // CerrarConexion cierra la conexión actualmente abierta con la base de datos.

@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -31,20 +30,16 @@ func main() {
 	s := http.StripPrefix("/public/", http.FileServer(http.Dir("./public/")))
 	r.PathPrefix("/public/").Handler(s)
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Panic().Msg("Error loading .env file")
-		return
-	}
 	connection.Conectar()
+
+	// Establece el puerto directamente en 8080
 	server := &http.Server{
-		Addr:         "172.26.32.1:" + os.Getenv("PORT"),
+		Addr:         "172.26.32.1:8080", // Cambié el puerto a 8080
 		Handler:      r,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
-	log.Info().Msg("Server running on port http://172.26.32.1:" + os.Getenv("PORT"))
+	log.Info().Msg("Server running on port http://172.26.32.1:8080")
 	server.ListenAndServe()
-
 }
