@@ -34,12 +34,12 @@ func main() {
 
 	// Establece el puerto directamente en 8080
 	server := &http.Server{
-		Addr:         "172.26.32.1:8080", // Cambié el puerto a 8080
+		Addr:         ":8080", // Escuchar en todas las interfaces
 		Handler:      r,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
-	log.Info().Msg("Server running on port http://172.26.32.1:8080")
+	log.Info().Msg("Server running on port :8080")
 	server.ListenAndServe()
 }
