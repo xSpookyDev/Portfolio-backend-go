@@ -13,6 +13,9 @@ RUN go mod tidy
 # Copia el código fuente de la aplicación al contenedor
 COPY . .
 
+# Copia las plantillas al contenedor
+COPY templates /app/templates
+
 # Compila la aplicación como binario estático
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
 
